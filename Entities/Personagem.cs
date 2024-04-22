@@ -31,7 +31,7 @@ namespace Runner
         public void Update(GameTime gameTime)
         {
             // Verificar entrada do jogador para pular
-            if (Keyboard.GetState().IsKeyDown(Keys.W) && !isJumping && !isDucking)
+            if (Keyboard.GetState().IsKeyDown(Keys.Space) && !isJumping && !isDucking)
             {
                 // Verificar se o personagem está no chão
                 if (position.Y >= Game1.ScreenHeight - sprite.Height)
