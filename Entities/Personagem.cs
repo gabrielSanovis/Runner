@@ -10,15 +10,21 @@ namespace Runner
 {
     public class Personagem
     {
-        private Vector2 position; // Posição do personagem
-        private Vector2 velocity; // Velocidade do personagem
-        private bool isJumping; // Indica se o personagem está pulando
-        private const float JumpVelocity = -13f; // Velocidade inicial do pulo
-        private const float Gravity = 0.7f; // Gravidade aplicada ao personagem
-        private bool isDucking; // Indica se o personagem está agachado
+        private Vector2 position; 
+        private Vector2 velocity; 
+        private bool isJumping;
+        private const float JumpVelocity = -13f; 
+        private const float Gravity = 0.7f; 
+        private bool isDucking; 
         private Rectangle playerBounds;
-        private Texture2D characterTexture; 
         private GraphicsDevice graphicsDevice;
+        private Texture2D[] runFrames;
+        private int currentRunFrames;
+        private Texture2D[] jumpFrames;
+        private int currentJumpFrames;
+        private float frameTime;
+        private float timeElapsed;
+        private float timeJumpElapsed;
         // Construtor
         public Personagem(GraphicsDevice graphicsDevice)
         {
@@ -27,29 +33,70 @@ namespace Runner
             this.velocity = Vector2.Zero;
             this.isJumping = false;
             this.isDucking = false;
+            this.frameTime = 0.1f;
+            currentRunFrames = 0;
+            currentJumpFrames = 0;
+            timeElapsed = 0;
+            timeJumpElapsed = 0;
         }
 
-        public void Initialize () 
+        public void Initialize()
         {
-            position = new Vector2(100, graphicsDevice.Viewport.Height - characterTexture.Height);
+            position = new Vector2(100, runFrames[0].Height);
         }
         public void LoadContent(ContentManager content)
         {
-            characterTexture = content.Load<Texture2D>("quadrado");
+            runFrames = new Texture2D[6];
+            for (int i = 0; i < 6; i++)
+            {
+                runFrames[i] = content.Load<Texture2D>("Player/Run/player-run-" + (i + 1));
+            }
+            jumpFrames = new Texture2D[2];
+            for (int i = 0; i < 2; i++)
+            {
+                jumpFrames[i] = content.Load<Texture2D>("Player/Jump/player-jump-" + (i + 1));
+            }
         }
 
         // Método para atualizar o personagem
         public void Update(GameTime gameTime, bool gameOver)
         {
-            // Verificar entrada do jogador para pular
+            if (position.Y >= Game1.ScreenHeight - runFrames[0].Height)
+            {
+                timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (timeElapsed > frameTime)
+                {
+                    currentRunFrames = (currentRunFrames + 1) % runFrames.Length;
+                    timeElapsed -= frameTime;
+                }
+
+                timeElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                currentJumpFrames = 0;
+            }
+            else
+            {
+                timeJumpElapsed += (float)gameTime.ElapsedGameTime.TotalSeconds;
+                if (timeJumpElapsed > 0.7f)
+                {
+                    currentRunFrames = 0;
+                    currentJumpFrames = (currentJumpFrames + 1) % jumpFrames.Length;
+                    timeJumpElapsed -= 0.7f;
+                }
+            }
+
+            
             if (Keyboard.GetState().IsKeyDown(Keys.Space) && !isJumping && !isDucking)
             {
-                // Verificar se o personagem está no chão
-                if (position.Y >= Game1.ScreenHeight - characterTexture.Height)
+               
+                if (position.Y >= Game1.ScreenHeight - runFrames[0].Height)
                 {
-                    velocity.Y = gameOver ? 0 : JumpVelocity; // Aplicar a velocidade do pulo
-                    isJumping = true; // Indicar que o personagem está pulando
+                    timeElapsed = 0;
+                    velocity.Y = gameOver ? 0 : JumpVelocity; 
+                    isJumping = true; 
                 }
+            }
+            else
+            {
                 isJumping = false;
             }
 
@@ -71,23 +118,26 @@ namespace Runner
             velocity.Y += 0.5f; // Ajuste a gravidade de acordo com o necessário
             position += velocity;
             // Limitar a posição do personagem para mantê-lo na tela
-            position.Y = MathHelper.Clamp(position.Y, 0, Game1.ScreenHeight - characterTexture.Height); // Ajuste de acordo com o tamanho da tela
-            playerBounds = new Rectangle((int)position.X, (int)position.Y, characterTexture.Width, characterTexture.Height);
+            position.Y = MathHelper.Clamp(position.Y, 0, Game1.ScreenHeight - runFrames[0].Height); // Ajuste de acordo com o tamanho da tela
+            playerBounds = new Rectangle((int)position.X, (int)position.Y, runFrames[0].Width - 13, runFrames[0].Height);
 
         }
 
-        // Método para desenhar o personagem
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(characterTexture, position, Color.White);
+            if (position.Y >= Game1.ScreenHeight - runFrames[0].Height)
+            {
+                spriteBatch.Draw(runFrames[currentRunFrames], position, Color.White);
+            }
+            else
+            {
+                spriteBatch.Draw(jumpFrames[currentJumpFrames], position, Color.White);
+            }
         }
 
-        // Método para verificar colisão com obstáculos (a ser implementado)
         public bool CheckCollision(Rectangle obstacleBounds)
         {
             return playerBounds.Intersects(obstacleBounds);
-            // Implemente a lógica para verificar colisões com os obstáculos aqui
-            // Retorna true se houver colisão, false caso contrário
         }
     }
 }
