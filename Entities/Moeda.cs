@@ -8,6 +8,7 @@ namespace Runner
         private Texture2D sprite; // Textura da moeda
         private Vector2 position; // Posição da moeda
         private float speed; // Velocidade da moeda
+        private bool isVisible = true;
 
         public Moeda(Texture2D sprite, Vector2 position, float speed)
         {
@@ -26,6 +27,15 @@ namespace Runner
         public Rectangle GetBounds()
         {
             return new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
+        }
+        public bool IsVisible()
+        {
+            return isVisible;
+        }
+
+        public void SetVisible(bool visible)
+        {
+            isVisible = visible;
         }
 
     }
