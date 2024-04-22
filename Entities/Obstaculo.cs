@@ -9,6 +9,7 @@ namespace Runner
         private Texture2D sprite; // Textura do obstáculo
         private Vector2 position; // Posição do obstáculo
         private float speed; // Velocidade do obstáculo
+        private bool isVisible = true;
 
         // Construtor
         public Obstaculo(Texture2D sprite, Vector2 position, float speed)
@@ -38,5 +39,16 @@ namespace Runner
         {
             return new Rectangle((int)position.X, (int)position.Y, sprite.Width, sprite.Height);
         }
+
+         public bool IsVisible()
+        {
+            return isVisible;
+        }
+
+        public void SetVisible(bool visible)
+        {
+            isVisible = visible;
+        }
+
     }
 }
