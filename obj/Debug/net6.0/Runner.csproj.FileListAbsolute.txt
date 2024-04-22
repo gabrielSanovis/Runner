@@ -55,3 +55,11 @@ C:\Users\9novi\projetos\Runner\obj\Debug\net6.0\refint\Runner.dll
 C:\Users\9novi\projetos\Runner\obj\Debug\net6.0\Runner.pdb
 C:\Users\9novi\projetos\Runner\obj\Debug\net6.0\Runner.genruntimeconfig.cache
 C:\Users\9novi\projetos\Runner\obj\Debug\net6.0\ref\Runner.dll
+C:\Users\9novi\projetos\Runner\bin\Debug\net6.0\Content\Player\Jump\player-jump-1.xnb
+C:\Users\9novi\projetos\Runner\bin\Debug\net6.0\Content\Player\Jump\player-jump-2.xnb
+C:\Users\9novi\projetos\Runner\bin\Debug\net6.0\Content\Player\Run\player-run-1.xnb
+C:\Users\9novi\projetos\Runner\bin\Debug\net6.0\Content\Player\Run\player-run-2.xnb
+C:\Users\9novi\projetos\Runner\bin\Debug\net6.0\Content\Player\Run\player-run-3.xnb
+C:\Users\9novi\projetos\Runner\bin\Debug\net6.0\Content\Player\Run\player-run-4.xnb
+C:\Users\9novi\projetos\Runner\bin\Debug\net6.0\Content\Player\Run\player-run-5.xnb
+C:\Users\9novi\projetos\Runner\bin\Debug\net6.0\Content\Player\Run\player-run-6.xnb
