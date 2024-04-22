@@ -12,10 +12,14 @@ public class Game1 : Game
         private SpriteBatch spriteBatch;
         private Texture2D characterTexture; // Textura do personagem
         private Texture2D obstacleTexture; // Textura do obstáculo
+        private Texture2D moedaTexture; // Textura da moeda
         private Personagem player; // Personagem
         private Obstaculo[] obstacles; // Array de obstáculos
+        private Moeda[] moedas; // Array de moedas
+        private const int MaxMoedas = 30; // Número máximo de moedas na tela
         private const int MaxObstacles = 40; // Número máximo de obstáculos na tela
         private float obstacleSpawnTimer = 0f; // Timer para controlar a geração de obstáculos
+        private float moedaSpawnTimer = 0f; // Timer para controlar a geração de moedas
         private Random random; // Gerador de números aleatórios
         public static int ScreenHeight { get; private set; }
         private float globalSpeed = 3f;
@@ -41,8 +45,10 @@ public class Game1 : Game
             spriteBatch = new SpriteBatch(GraphicsDevice);
             characterTexture = Content.Load<Texture2D>("quadrado"); // Carrega a textura do personagem
             obstacleTexture = Content.Load<Texture2D>("obstaculo"); // Carrega a textura do obstáculo
+            moedaTexture = Content.Load<Texture2D>("moeda"); // Carrega a textura da moeda
             player = new Personagem(characterTexture, new Vector2(100, GraphicsDevice.Viewport.Height - characterTexture.Height)); // Cria o personagem
             obstacles = new Obstaculo[MaxObstacles]; // Inicializa o array de obstáculos
+            moedas = new Moeda[MaxMoedas];
         }
 
         protected override void UnloadContent()
@@ -75,8 +81,20 @@ public class Game1 : Game
                 }
                 obstacleSpawnTimer = 0f;
             }
+            moedaSpawnTimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+            if (moedaSpawnTimer > 1.5f)
+            {
+                for (int i = 0; i < moedas.Length; i++)
+                {
+                    if (moedas[i] == null)
+                    {
+                        moedas[i] = new Moeda(moedaTexture, new Vector2(GraphicsDevice.Viewport.Width + globalSpeed + moedaTexture.Height + 50 , GraphicsDevice.Viewport.Height - 250), globalSpeed);
+                        break;
+                    }
+                }
+                moedaSpawnTimer = 0f;
+            }
 
-            // Atualiza os obstáculos e verifica colisões
             foreach (Obstaculo obstacle in obstacles)
             {
                 if (obstacle != null)
@@ -84,7 +102,18 @@ public class Game1 : Game
                     obstacle.Update(gameTime, globalSpeed);
                     if (player.CheckCollision(obstacle.GetBounds()))
                     {
-                        // O jogador perdeu, implemente a lógica apropriada aqui
+
+                    }
+                }
+            }
+            foreach (Moeda moeda in moedas)
+            {
+                if (moeda != null)
+                {
+                    moeda.Update(gameTime, globalSpeed);
+                    if (player.CheckCollision(moeda.GetBounds()))
+                    {
+                        
                     }
                 }
             }
@@ -97,6 +126,14 @@ public class Game1 : Game
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             spriteBatch.Begin();
+            
+            foreach (Moeda moeda in moedas)
+            {
+                if (moeda != null)
+                {
+                    moeda.Draw(spriteBatch);
+                }
+        }
 
             // Desenha o jogador
             player.Draw(spriteBatch);

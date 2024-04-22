@@ -4,10 +4,12 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/9novi/projetos/Runner/Content/obstaculo.png</File>
-    <File>C:/Users/9novi/projetos/Runner/Content/quadrado.png</File>
+    <File>C:/Users/Lucas/Desktop/Runner/Content/moeda.png</File>
+    <File>C:/Users/Lucas/Desktop/Runner/Content/obstaculo.png</File>
+    <File>C:/Users/Lucas/Desktop/Runner/Content/quadrado.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

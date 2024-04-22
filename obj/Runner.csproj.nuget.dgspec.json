@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\9novi\\projetos\\Runner\\Runner.csproj": {}
+    "C:\\Users\\Lucas\\Desktop\\Runner\\Runner.csproj": {}
   },
   "projects": {
-    "C:\\Users\\9novi\\projetos\\Runner\\Runner.csproj": {
+    "C:\\Users\\Lucas\\Desktop\\Runner\\Runner.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\9novi\\projetos\\Runner\\Runner.csproj",
+        "projectUniqueName": "C:\\Users\\Lucas\\Desktop\\Runner\\Runner.csproj",
         "projectName": "Runner",
-        "projectPath": "C:\\Users\\9novi\\projetos\\Runner\\Runner.csproj",
-        "packagesPath": "C:\\Users\\9novi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\9novi\\projetos\\Runner\\obj\\",
+        "projectPath": "C:\\Users\\Lucas\\Desktop\\Runner\\Runner.csproj",
+        "packagesPath": "C:\\Users\\Lucas\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Lucas\\Desktop\\Runner\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\9novi\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\Lucas\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
